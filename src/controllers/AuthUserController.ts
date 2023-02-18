@@ -25,7 +25,7 @@ export async function AuthUser(request: Request, response: Response) {
     }
     const token = jwt.sign(dataUser, "300ecbe3232782c3431fa9361e060333");
 
-    request.headers['authorization'] = token;
+    request.headers.authorization = token;
 
     return response.json({dataUser, token}).status(200);
 

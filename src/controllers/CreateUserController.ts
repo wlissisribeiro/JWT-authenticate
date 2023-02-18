@@ -5,6 +5,12 @@ import { hash } from 'bcryptjs'
 
 export async function CreateUser(request: Request, response: Response) {
     const { name, email, password } = request.body;
+
+    if(name == ""||email==""|| password==""){
+        return response.json({ message: "campo com dados inválido" }).status(401);
+
+    }
+
     const user = await prisma.user.findFirst({ where: { email: { equals: email } } });
 
 
