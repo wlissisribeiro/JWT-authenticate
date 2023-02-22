@@ -12,7 +12,7 @@ import { Authenticate } from './middleware/authenticate';
 export const routes = Router()
 
 routes.post("/register", CreateUser);
-routes.post("/post", CreatePost);
+routes.post("/post",Authenticate, CreatePost);
 routes.post("/login",AuthUser);
 
 routes.get("/posts",Authenticate ,ListPostsUser);

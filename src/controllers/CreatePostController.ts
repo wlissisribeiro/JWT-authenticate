@@ -4,19 +4,23 @@ import { hash } from 'bcryptjs'
 
 
 export async function CreatePost(request: Request, response: Response) {
-    const { title, content, user_id } = request.body;
+    const { title, content } = request.body;
+    const { id } = request.user
+    // const user = await prisma.user.findFirst({ where: { id: { equals: user_id } } });
 
-    const user = await prisma.user.findFirst({ where: { id: { equals: user_id } } });
+    if (title == "" || content == "") {
+        return response.json({ message: "campo ausente" }).status(201);
+    }
 
-    if(!user){
+    if (!id) {
         return response.json({ message: "author invalido" }).status(201);
     }
 
     await prisma.post.create({
-        data:{
+        data: {
             title,
             content,
-            user_id
+            user_id: id
         }
     });
 
